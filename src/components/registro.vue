@@ -1,4 +1,11 @@
 <template>
+
+<div class="logo-container">
+      <p class="h1 text-primary">GatAgua</p>
+      <figure class="figure">
+        <img src="@/assets/logoGatoAgua.png" class="figure-img img-fluid rounded">
+      </figure>
+    </div>
     <form class="row g-3 needs-validation" novalidate>
         <p class="h2 text-secondary">Regístrate</p>
         <br>
