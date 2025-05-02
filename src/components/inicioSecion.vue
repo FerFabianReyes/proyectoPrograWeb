@@ -1,4 +1,5 @@
 <template>
+    <logoGato></logoGato>
     <div class="row">
         <p class="h2 text-secondary">Inicia Seción</p>
         <br>
