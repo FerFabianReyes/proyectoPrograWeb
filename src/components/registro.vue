@@ -1,35 +1,68 @@
 <template>
-
-<div class="logo-container">
-      <p class="h1 text-primary">GatAgua</p>
-      <figure class="figure">
-        <img src="@/assets/logoGatoAgua.png" class="figure-img img-fluid rounded">
-      </figure>
+    <div class="login-container">
+      <div class="logo-section">
+        <img src="../assets/logoGatoAgua.png" alt="Logo" class="logo-image">
+      </div>
+      <div class="form-section">
+        <div class="login-card">
+          <h2 class="text-center mb-4">Registro</h2>
+          <form @submit.prevent="registrar">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" v-model="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" v-model="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="password" v-model="password" required>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+          </form>
+          <p class="mt-3 text-center">
+            ¿Ya tienes una cuenta? <router-link to="/inicioSecion">Inicia Sesión</router-link>
+          </p>
+        </div>
+      </div>
     </div>
-    <form class="row g-3 needs-validation" novalidate>
-        <p class="h2 text-secondary">Regístrate</p>
-        <br>
-        <div class="col-md-4 position-relative">
-            <label for="validationTooltip01" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="validationTooltip01" value="" required>
-        </div>
+  </template>
+  
+  <style scoped>
+    .login-container {
+    display: flex;
+    width: 100%;
+    }
 
-        <div class="col-md-4 position-relative">
-            <label for="validationTooltipEmail" class="form-label">Correo</label>
-            <div class="input-group has-validation">
-                <input type="email" class="form-control" id="validationTooltipUsername"
-                    aria-describedby="validationTooltipUsernamePrepend" required>
-            </div>
-        </div>
-        <div class="col-md-6 position-relative">
-            <label for="validationTooltip03" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="validationTooltip03" required>
-            <br>
-            <div class="btn-group custom-btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-primary">Iniciar Seción</button>
-                <button type="button" class="btn btn-outline-primary">Registrarse</button>
-            </div>
-        </div>
+    .logo-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    }
+    
+    .form-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    }
 
-    </form>
-</template>
+    .logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 50px;
+    }
+    
+    .login-card {
+    width: 100%;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+ </style>  
