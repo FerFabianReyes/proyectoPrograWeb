@@ -7,8 +7,8 @@
       <div class="login-card">
         <h2 class="text-center mb-4">Registro</h2>
         
-        <!-- Mensaje de alerta -->
-        <div v-if="alerta.mensaje" class="alert" :class="alerta.tipo">
+        <!-- Mensaje de alerta usando clases de Bootstrap -->
+        <div v-if="alerta.mensaje" class="alert" :class="alerta.tipo" role="alert">
           {{ alerta.mensaje }}
         </div>
         
@@ -65,43 +65,30 @@ export default {
         return;
       }
 
-      // Ver los usuarios registrados
       const usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-      // Ver si el usuario ya existe
       const existe = usuariosRegistrados.some(u => u.email === email);
+      
       if (existe) {
         this.mostrarAlerta('El correo electrónico ya está registrado', 'alert-danger');
         return;
       }
 
-      // Crea un nuevo usuario 
-      const nuevoUsuario = { 
-        nombre, 
-        email, 
-        password
-      };
-
-      // Agregar al nuevo usuario
+      const nuevoUsuario = { nombre, email, password };
       usuariosRegistrados.push(nuevoUsuario);
-
-      // Guardar en localStorage
       localStorage.setItem('usuarios', JSON.stringify(usuariosRegistrados));
 
-      this.registro = {
-        nombre: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      };
-  
-      this.$router.push('/');
+      this.mostrarAlerta('¡Registro exitoso! Redirigiendo...', 'alert-success');
+      
+      this.registro = { nombre: '', email: '', password: '', confirmPassword: '' };
+
+      setTimeout(() => {
+        this.$router.push('/');
+      }, 2000);
     },
     mostrarAlerta(mensaje, tipo) {
       this.alerta.mensaje = mensaje;
       this.alerta.tipo = tipo;
       
-      // Limpiar alerta después de 5 segundos
       setTimeout(() => {
         this.alerta.mensaje = '';
         this.alerta.tipo = '';
@@ -115,12 +102,15 @@ export default {
 .login-container {
   display: flex;
   width: 100%;
+  min-height: 100vh;
 }
 
 .logo-section {
   width: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
 }
 
 .form-section {
@@ -132,35 +122,17 @@ export default {
 }
 
 .logo-image {
-  width: 100%;
-  height: 100%;
+  max-width: 80%;
+  max-height: 80vh;
   object-fit: contain;
-  padding: 50px;
+  padding: 20px;
 }
 
 .login-card {
   width: 100%;
-  padding: 30px;
+  max-width: 400px;
+  padding: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.alert {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-}
-
-.alert-success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
-.alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
 }
 
 @media (max-width: 768px) {

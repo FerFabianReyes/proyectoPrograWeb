@@ -6,8 +6,8 @@
     <div class="form-section">
       <div class="login-card">
         <h2 class="text-center mb-4">Iniciar Sesión</h2>
-        <!-- Mensaje de alerta -->
-        <div v-if="alerta.mensaje" class="alert" :class="alerta.tipo">
+        <!-- Mensaje de alerta con clases de Bootstrap -->
+        <div v-if="alerta.mensaje" class="alert" :class="alerta.tipo" role="alert">
           {{ alerta.mensaje }}
         </div>
         <form @submit.prevent="validar">
@@ -40,6 +40,7 @@ export default {
       },
       alerta: {
         mensaje: '',
+        tipo: ''
       }
     };
   },
@@ -55,7 +56,7 @@ export default {
         this.$router.push('/principal');
       } else {
         this.mostrarAlerta('Usuario o contraseña incorrectos', 'alert-danger');
-        this.limpiarControles();
+        this.login.password = ''; // Limpiar solo la contraseña por seguridad
       }
     },
     mostrarAlerta(mensaje, tipo) {
@@ -73,15 +74,19 @@ export default {
 </script>
 
 <style scoped>
+/* Eliminamos los estilos personalizados de alerta */
 .login-container {
   display: flex;
   width: 100%;
+  min-height: 100vh;
 }
 
 .logo-section {
   width: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
 }
 
 .form-section {
@@ -93,44 +98,25 @@ export default {
 }
 
 .logo-image {
-  width: 100%;
-  height: 100%;
+  max-width: 80%;
+  max-height: 80vh;
   object-fit: contain;
-  padding: 50px;
+  padding: 20px;
 }
 
 .login-card {
   width: 100%;
-  padding: 30px;
+  max-width: 400px;
+  padding: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.alert {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-}
-
-.alert-success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
-.alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
 }
 
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
   }
-
-  .logo-section,
-  .form-section {
+  
+  .logo-section, .form-section {
     width: 100%;
     min-height: 50vh;
   }
