@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <p>id:</p>
+            <p >id:</p>
         </div>
     </div>
 </template>

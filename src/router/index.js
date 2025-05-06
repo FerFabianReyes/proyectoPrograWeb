@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import inicioSecion from '../components/inicioSecion.vue'
 import registro from '../components/registro.vue'
 import menu from '@/components/menu.vue'
+import dispo from '@/components/dispositivos/listaDispo.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/menu',
       name: 'menu',
       component: menu,
+    },
+    {
+      path: '/dispo',
+      name: 'dispo',
+      component: dispo,
     },
   ],
 })
