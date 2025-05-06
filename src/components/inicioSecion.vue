@@ -53,7 +53,7 @@ export default {
       );
 
       if (encontrado) {
-        this.$router.push('/principal');
+        this.$router.push('/menu');
       } else {
         this.mostrarAlerta('Usuario o contraseña incorrectos', 'alert-danger');
         this.login.password = ''; // Limpiar solo la contraseña por seguridad

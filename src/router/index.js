@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import inicioSecion from '../components/inicioSecion.vue'
 import registro from '../components/registro.vue'
-import principal from '@/components/principal.vue'
+import menu from '@/components/menu.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +17,9 @@ const router = createRouter({
       component: registro,
     },
     {
-      path: '/principal',
-      name: 'principal',
-      component: principal,
+      path: '/menu',
+      name: 'menu',
+      component: menu,
     },
   ],
 })
