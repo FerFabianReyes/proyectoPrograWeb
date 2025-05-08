@@ -2,5 +2,12 @@
 </template>
 
 <script>
-import  from "module";
+export default {
+  props: {
+    dispositivo: {
+      type: Object,
+      required: true
+    }
+  }
+}
 </script>

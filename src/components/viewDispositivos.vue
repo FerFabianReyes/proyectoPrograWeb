@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import Dispositivo from './dispositivos.vue'
+    import Dispositivo from './dispositivo.vue'
     export default {
         name: 'viewDispositivos',
         properties{
@@ -20,6 +20,7 @@
         DataTransfer(){
             listaDispo:[
                 
+
             ]
         }
     }
