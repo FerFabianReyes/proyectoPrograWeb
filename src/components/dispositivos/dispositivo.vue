@@ -1,13 +1,9 @@
 <template>
+    <h1>Dispositivo</h1>
 </template>
 
 <script>
 export default {
-  props: {
-    dispositivo: {
-      type: Object,
-      required: true
-    }
-  }
+    name: 'Dispositivo'
 }
 </script>
