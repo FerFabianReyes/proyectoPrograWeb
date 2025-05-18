@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h3>Lista de dispositivo</h3>
-            <dispositivo v-for="(item.index) in listaDispositivos" :dispositivo="item"></dispositivo>
+            <dispositivo v-for="(item, index) in listaDispositivos" :dispositivo="item"></dispositivo>
         </div>
     </div>   
 </template>

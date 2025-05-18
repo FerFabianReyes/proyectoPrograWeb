@@ -3,6 +3,7 @@ import inicioSecion from '../components/inicioSecion.vue'
 import registro from '../components/registro.vue'
 import menu from '@/components/menu.vue'
 import listaDispo from '@/components/dispositivos/listaDispo.vue'
+import listaView from '@/components/dispositivos/viewDispositivos.vue'
 
 
 const router = createRouter({
@@ -28,6 +29,11 @@ const router = createRouter({
       name: 'listadispo',
       component: listaDispo,
     },
+    {
+      path: '/listaView',
+      name: 'listaView',
+      component: listaView,
+    }
   ],
 })
 
