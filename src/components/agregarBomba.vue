@@ -66,6 +66,8 @@
             aria-describedby="basic-addon1">                
     </div>   
 
+    <button type="button" class="btn btn-outline-primary">Agregar</button>
+
 </template>
 
 <style>
