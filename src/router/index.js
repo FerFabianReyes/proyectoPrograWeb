@@ -26,6 +26,11 @@ const router = createRouter({
       component: menu,
       children:[
         {
+          path: '',
+          name: 'listaView',
+          component: listaView,
+        },
+        {
           path: 'agregarBomba',
           name: 'agregarBomba',
           component: agregarBomba
@@ -36,11 +41,6 @@ const router = createRouter({
       path: '/listadispo',
       name: 'listadispo',
       component: listaDispo,
-    },
-    {
-      path: '/listaView',
-      name: 'listaView',
-      component: listaView,
     },
   ],
 })
