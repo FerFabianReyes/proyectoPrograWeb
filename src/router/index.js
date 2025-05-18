@@ -4,6 +4,7 @@ import registro from '../components/registro.vue'
 import menu from '@/components/menu.vue'
 import listaDispo from '@/components/dispositivos/listaDispo.vue'
 import listaView from '@/components/dispositivos/viewDispositivos.vue'
+import agregarBomba from '@/components/agregarBomba.vue'
 
 
 const router = createRouter({
