@@ -26,7 +26,7 @@ const router = createRouter({
       component: menu,
       children:[
         {
-          path: '/agregarBomba',
+          path: 'agregarBomba',
           name: 'agregarBomba',
           component: agregarBomba
         }

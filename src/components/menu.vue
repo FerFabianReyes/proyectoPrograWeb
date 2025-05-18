@@ -10,14 +10,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" aria-current="page" href="/agregarBomba">Agregar Bomba</a>
+                        <router-link to="/menu/agregarBomba" class="nav-link">Agregar Bomba</router-link>
                         <a class="nav-link" href="#">Eliminar Bomba</a>
                         <a class="nav-link" href="#">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
         </nav>
-        
+       
+    <router-view></router-view>
        
     </div>
 
