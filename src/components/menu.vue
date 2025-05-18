@@ -43,4 +43,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.navbar {
+  position: fixed;
+  top: 0;         
+  left: 0;        
+  width: 100%;     
+  z-index: 1000;   
+}
+
+.body {
+  padding-top: 56px; 
+}
+</style>

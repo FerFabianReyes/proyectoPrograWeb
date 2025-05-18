@@ -1,8 +1,7 @@
 <template>
-        <div class="card-body">
         <h1>Lista de dispositivos</h1> <br>
             <dispositivo v-for="(item, index) in listaDispositivos" :dispositivo="item"></dispositivo>
-        </div> 
+
         
         <table class="table table-striped table-hover">
             <tr>
