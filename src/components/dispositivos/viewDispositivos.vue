@@ -5,6 +5,62 @@
             <dispositivo v-for="(item, index) in listaDispositivos" :dispositivo="item"></dispositivo>
         </div>
     </div>   
+
+
+
+     <div class="informacion">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ nombre }}</h5>
+                        <small>{{ estado }}</small>
+                    </div>
+                    <small>{{ id }}  {{ ubicacion }}</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Bomba 2</h5>
+                        <small>Estadox</small>
+                    </div>
+                    <small>id y ubicación</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Bomba 1</h5>
+                        <small>Estadox</small>
+                    </div>
+                    <small>id y ubicación</small>
+                </a>
+            </div>
+        </div>
+        
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Propiedades</th>
+                <th>x</th>
+                <th>x</th>
+                <th>x</th>
+            </tr>
+            <tr>
+                <td>Voltaje</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Corriente</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Caudal</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
 </template>
 
 <script>
