@@ -25,9 +25,9 @@
             caudal: {}
             },
             {
-            id: 0,
-            nombre: 'dispositivo1',
-            ubicacion: 'represa tal',
+            id: 1,
+            nombre: 'dispositivo2',
+            ubicacion: 'represa tal 2',
             coordenadas: '20.00',
             potencia: {nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw'},
             voltaje: {},
