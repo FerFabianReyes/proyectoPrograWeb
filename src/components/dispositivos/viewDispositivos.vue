@@ -6,8 +6,10 @@
       :key="index"
       :dispositivo="item"
     />
+    <router-view></router-view>
   </div>
 </template>
+
 
 <script>
 import dispositivo from './dispositivo.vue'

@@ -28,21 +28,23 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'panelBombas',
-          component: () => import('@/components/dispositivos/panelBombas.vue')
+          component: listaView,
+          children: [
+            {
+              path: 'analisisBomba',
+              name: 'analisisBomba',
+              component: analisisBomba
+            }
+          ]
         },
         {
           path: 'agregarBomba',
           name: 'agregarBomba',
           component: agregarBomba
-        },
-        {
-          path: 'analisisBomba',
-          name: 'analisisBomba',
-          component: analisisBomba
         }
       ]
-    },
+    }
+    ,
     {
       path: '/listadispo',
       name: 'listadispo',
