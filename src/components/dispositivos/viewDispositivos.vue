@@ -1,53 +1,32 @@
 <template>
+  <div>
     <h1>Lista de dispositivos</h1> <br>
-    <dispositivo v-for="(item, index) in listaDispositivos" :dispositivo="item"></dispositivo>
-
-
-
-
+    <dispositivo
+      v-for="(item, index) in listaDispositivos"
+      :key="index"
+      :dispositivo="item"
+    />
+  </div>
 </template>
 
 <script>
 import dispositivo from './dispositivo.vue'
+
 export default {
-    name: 'viewDispositivos',
-    props: {},
-    components: { dispositivo },
-    data() {
-        return {
-            listaDispositivos: [
-                {
-                    id: 0,
-                    nombre: 'dispositivo1',
-                    ubicacion: 'represa tal',
-                    coordenadas: '20.00',
-                    potencia: { nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw' },
-                    voltaje: {},
-                    corriente: {},
-                    caudal: {}
-                },
-                {
-                    id: 1,
-                    nombre: 'dispositivo2',
-                    ubicacion: 'represa tal 2',
-                    coordenadas: '20.00',
-                    potencia: { nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw' },
-                    voltaje: {},
-                    corriente: {},
-                    caudal: {}
-                },
-                {
-                    id: 2,
-                    nombre: 'dispositivo3',
-                    ubicacion: 'represa tal 3',
-                    coordenadas: '20.00',
-                    potencia: { nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw' },
-                    voltaje: {},
-                    corriente: {},
-                    caudal: {}
-                }
-            ]
-        }
+  name: 'viewDispositivos',
+  components: { dispositivo },
+  data() {
+    return {
+      listaDispositivos: []
     }
+  },
+  mounted() {
+    const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+    this.listaDispositivos = bombas.map(bomba => ({
+      nombre: bomba.nombre,
+      estado: bomba.estado,
+      ubicacion: bomba.coordenadas // usamos "ubicacion" como alias de "coordenadas"
+    }));
+  }
 }
 </script>

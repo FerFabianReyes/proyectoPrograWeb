@@ -1,22 +1,26 @@
 <template>
-  <div class="informacion">
-    <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{ dispositivo.nombre }}</h5>
-          <small>{{ dispositivo.estado || 'Sin estado' }}</small>
-        </div>
-        <small>ID: {{ dispositivo.id }} | Ubicación: {{ dispositivo.ubicacion }}</small>
-      </a>
-    </div>
+  <div class="card mb-3 p-3">
+    <h5>{{ dispositivo.nombre }}</h5>
+    <p><strong>Ubicación:</strong> {{ dispositivo.ubicacion }}</p>
+    <p><strong>Estado:</strong> {{ dispositivo.estado }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Dispositivo',
+  name: 'dispositivo',
   props: {
-    dispositivo: Object
+    dispositivo: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>
+
+<style>
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+</style>
