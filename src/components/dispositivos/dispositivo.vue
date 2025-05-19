@@ -32,7 +32,8 @@ export default {
     estado: this.dispositivo.estado,
     ubicacion: this.dispositivo.ubicacion
   }
-});
+})
+
     }
   }
 };
