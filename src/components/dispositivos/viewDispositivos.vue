@@ -7,7 +7,7 @@
             <dispositivo v-for="(item, index) in listaDispositivos" :key="index" :dispositivo="item" />
         </div>
 
-        <div class="analisis-bomba" style="flex: 1; min-width: 750px;">
+        <div class="analisis-bomba" style="flex: 1; min-width: 800px;">
             <router-view />
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
         this.listaDispositivos = bombas.map(bomba => ({
             nombre: bomba.nombre,
             estado: bomba.estado,
-            ubicacion: bomba.coordenadas // alias para ubicacion
+            ubicacion: bomba.ubicacion
         }));
     }
 }

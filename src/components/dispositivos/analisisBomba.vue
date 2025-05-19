@@ -1,6 +1,6 @@
 <template>
     <div class="analisis"
-        style="flex: 1; min-width: 750px; border-right: 1px solid #ccc; padding-right: 20px; overflow-y: auto; max-height: 80vh;">
+        style="flex: 1; min-width: 800px; border-right: 1px solid #ccc; padding-right: 20px; overflow-y: auto; max-height: 80vh;">
 
         <div class="container text-center">
             <div class="row">
@@ -8,15 +8,28 @@
                     <p class="h4" v-if="bomba">{{ bomba.nombre }}</p>
                 </div>
                 <div class="col">
-                    <p class="h4">Estado</p>
-                    <div class="alert alert-success" role="alert">
-                        {{ $route.query.estado }}
-                    </div>
+                    <p class="h4" v-if="bomba">{{ bomba.estado }}</p>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn" @click="recargarPagina">
+                        <span class="material-symbols-outlined">refresh</span>
+                    </button>
+
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col">
-                    <p class="h5">Ubicación: {{ $route.query.ubicacion }}</p>
+                    <p class="h5" v-if="bomba">Ubicación</p>
+                    <p class="h6" v-if="bomba">{{ bomba.ubicacion }}</p>
+                </div>
+                <div class="col">
+                    <p class="h5" v-if="bomba">Coordenadas</p>
+                    <p class="h6" v-if="bomba">{{ bomba.coordenadas }}</p>
+                </div>
+                <div class="col">
+                    <p class="h5" v-if="bomba">Fecha de registro</p>
+                    <p class="h6" v-if="bomba">{{ bomba.fechaRegistro }}</p>
                 </div>
             </div>
         </div>
@@ -142,27 +155,51 @@
 
 <script>
 export default {
-  name: 'analisisBomba',
-  data() {
-    return {
-      bomba: null
-    };
-  },
-  mounted() {
-    this.cargarBomba();
-  },
-  watch: {
-    '$route.query.nombre': function(newNombre) {
-      this.cargarBomba();
+    name: 'analisisBomba',
+    data() {
+        return {
+            bomba: null
+        };
+    },
+    mounted() {
+        this.cargarBomba();
+    },
+    watch: {
+        '$route.query.nombre': function (newNombre) {
+            this.cargarBomba();
+        }
+    },
+    methods: {
+        cargarBomba() {
+            const nombre = this.$route.query.nombre;
+            const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+            this.bomba = bombas.find(b => b.nombre === nombre) || null;
+
+            if (this.bomba) {
+                this.cambiarEstadoBomba();
+            }
+        },
+        cambiarEstadoBomba() {
+            const r = Math.random();
+            if (r < 1 / 6) {
+                this.bomba.estado = "Crítico";
+            } else if (r < 4 / 6) {
+                this.bomba.estado = "Advertencia";
+            } else {
+                this.bomba.estado = "Estable";
+            }
+
+            const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+            const index = bombas.findIndex(b => b.nombre === this.bomba.nombre);
+            if (index !== -1) {
+                bombas[index].estado = this.bomba.estado;
+                localStorage.setItem('bombas', JSON.stringify(bombas));
+            }
+        },
+        recargarPagina() {
+        window.location.reload();
     }
-  },
-  methods: {
-    cargarBomba() {
-      const nombre = this.$route.query.nombre;
-      const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
-      this.bomba = bombas.find(b => b.nombre === nombre) || null;
     }
-  }
-};
+}
 
 </script>

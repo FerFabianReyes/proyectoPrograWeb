@@ -12,7 +12,7 @@
                     <div class="navbar-nav">
                         <router-link to="/menu/agregarBomba" class="nav-link">Agregar Bomba</router-link>
                         <a class="nav-link" href="#">Eliminar Bomba</a>
-                        <a class="nav-link" href="#">Cerrar Sesión</a>
+                        <a class="nav-link" href="/">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
