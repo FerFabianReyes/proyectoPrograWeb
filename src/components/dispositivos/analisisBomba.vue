@@ -1,11 +1,11 @@
 <template>
     <div class="analisis"
-    style="flex: 1; min-width: 750px; border-right: 1px solid #ccc; padding-right: 20px; overflow-y: auto; max-height: 80vh;">
+        style="flex: 1; min-width: 750px; border-right: 1px solid #ccc; padding-right: 20px; overflow-y: auto; max-height: 80vh;">
 
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <p class="h4">{{ $route.query.nombre }}</p>
+                    <p class="h4" v-if="bomba">{{ bomba.nombre }}</p>
                 </div>
                 <div class="col">
                     <p class="h4">Estado</p>
@@ -25,14 +25,14 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseOne">
                         Potencia
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                     <div class="accordion-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover" v-if="bomba">
                             <tr>
                                 <th>Nominal</th>
                                 <th>Máxima</th>
@@ -40,10 +40,10 @@
                                 <th>Unidades</th>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ bomba.potencia.nominal }}</td>
+                                <td>{{ bomba.potencia.max }}</td>
+                                <td>{{ bomba.potencia.min }}</td>
+                                <td>{{ bomba.potencia.unidades }}</td>
                             </tr>
                         </table>
                     </div>
@@ -59,7 +59,7 @@
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover" v-if="bomba">
                             <tr>
                                 <th>Nominal</th>
                                 <th>Máxima</th>
@@ -67,10 +67,10 @@
                                 <th>Unidades</th>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ bomba.voltaje.nominal }}</td>
+                                <td>{{ bomba.voltaje.max }}</td>
+                                <td>{{ bomba.voltaje.min }}</td>
+                                <td>{{ bomba.voltaje.unidades }}</td>
                             </tr>
                         </table>
                     </div>
@@ -86,7 +86,7 @@
                 </h2>
                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover" v-if="bomba">
                             <tr>
                                 <th>Nominal</th>
                                 <th>Máxima</th>
@@ -94,12 +94,10 @@
                                 <th>Unidades</th>
                             </tr>
                             <tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                <td>{{ bomba.corriente.nominal }}</td>
+                                <td>{{ bomba.corriente.max }}</td>
+                                <td>{{ bomba.corriente.min }}</td>
+                                <td>{{ bomba.corriente.unidades }}</td>
 
                             </tr>
                         </table>
@@ -116,7 +114,7 @@
                 </h2>
                 <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover" v-if="bomba">
                             <tr>
                                 <th>Nominal</th>
                                 <th>Máxima</th>
@@ -124,10 +122,10 @@
                                 <th>Unidades</th>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ bomba.caudal.nominal }}</td>
+                                <td>{{ bomba.caudal.max }}</td>
+                                <td>{{ bomba.caudal.min }}</td>
+                                <td>{{ bomba.caudal.unidades }}</td>
                             </tr>
 
                         </table>
@@ -141,3 +139,30 @@
     </div>
 
 </template>
+
+<script>
+export default {
+  name: 'analisisBomba',
+  data() {
+    return {
+      bomba: null
+    };
+  },
+  mounted() {
+    this.cargarBomba();
+  },
+  watch: {
+    '$route.query.nombre': function(newNombre) {
+      this.cargarBomba();
+    }
+  },
+  methods: {
+    cargarBomba() {
+      const nombre = this.$route.query.nombre;
+      const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+      this.bomba = bombas.find(b => b.nombre === nombre) || null;
+    }
+  }
+};
+
+</script>
