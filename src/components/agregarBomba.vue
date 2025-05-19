@@ -42,7 +42,28 @@
       <input v-model="bomba.caudal.unidades" type="text" class="form-control" placeholder="Unidades">
     </div>
 
-    <button @click="guardarBomba" class="btn btn-outline-primary">Agregar</button>
+    <button @click="verificarCampos" class="btn btn-outline-primary">Agregar</button>
+
+    <!-- MODAL -->
+    <div class="modal fade show d-block" tabindex="-1" v-if="mostrarModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirmar guardado</h5>
+            <button type="button" class="btn-close" @click="cerrarModal"></button>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro que deseas agregar esta bomba?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" @click="cerrarModal">Cerrar</button>
+            <button class="btn btn-primary" @click="confirmarGuardarBomba">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN MODAL -->
+
   </div>
 </template>
 
@@ -51,6 +72,7 @@ export default {
   name: 'AgregarBomba',
   data() {
     return {
+      mostrarModal: false,
       bomba: {
         id: Date.now(),
         nombre: '',
@@ -66,33 +88,38 @@ export default {
     }
   },
   methods: {
-  camposLlenos(obj) {
-    // Verifica que todos los valores del objeto no estén vacíos
-    return Object.values(obj).every(v => v !== '');
-  },
-  guardarBomba() {
-    const b = this.bomba;
+    camposLlenos(obj) {
+      return Object.values(obj).every(v => v !== '');
+    },
+    verificarCampos() {
+      const b = this.bomba;
 
-    const todosLlenos =
-      b.nombre && b.estado && b.coordenadas &&
-      this.camposLlenos(b.potencia) &&
-      this.camposLlenos(b.voltaje) &&
-      this.camposLlenos(b.corriente) &&
-      this.camposLlenos(b.caudal);
+      const todosLlenos =
+        b.nombre && b.estado && b.coordenadas &&
+        this.camposLlenos(b.potencia) &&
+        this.camposLlenos(b.voltaje) &&
+        this.camposLlenos(b.corriente) &&
+        this.camposLlenos(b.caudal);
 
-    if (!todosLlenos) {
-      alert('Por favor, complete todos los campos antes de guardar.');
-      return;
+      if (!todosLlenos) {
+        alert('Por favor, complete todos los campos antes de guardar.');
+        return;
+      }
+
+      this.mostrarModal = true;
+    },
+    cerrarModal() {
+      this.mostrarModal = false;
+    },
+    confirmarGuardarBomba() {
+      let bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+      bombas.push(this.bomba);
+      localStorage.setItem('bombas', JSON.stringify(bombas));
+      this.mostrarModal = false;
+      alert('Bomba guardada');
+      this.$router.push('/menu');
     }
-
-    let bombas = JSON.parse(localStorage.getItem('bombas')) || [];
-    bombas.push(this.bomba);
-    localStorage.setItem('bombas', JSON.stringify(bombas));
-    alert('Bomba guardada');
-    this.$router.push('/menu');
   }
-}
-
 }
 </script>
 
@@ -100,5 +127,20 @@ export default {
 .mb-2 {
   width: 400px;
   padding: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1050;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
 }
 </style>
