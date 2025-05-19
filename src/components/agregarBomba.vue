@@ -116,7 +116,6 @@ export default {
       bombas.push(this.bomba);
       localStorage.setItem('bombas', JSON.stringify(bombas));
       this.mostrarModal = false;
-      alert('Bomba guardada');
       this.$router.push('/menu');
     }
   }

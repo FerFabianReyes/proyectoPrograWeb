@@ -5,6 +5,7 @@ import menu from '@/components/menu.vue'
 import listaDispo from '@/components/dispositivos/listaDispo.vue'
 import listaView from '@/components/dispositivos/viewDispositivos.vue'
 import agregarBomba from '@/components/agregarBomba.vue'
+import analisisBomba from '@/components/dispositivos/analisisBomba.vue'
 
 
 const router = createRouter({
@@ -24,16 +25,21 @@ const router = createRouter({
       path: '/menu',
       name: 'menu',
       component: menu,
-      children:[
+      children: [
         {
           path: '',
-          name: 'listaView',
-          component: listaView,
+          name: 'panelBombas',
+          component: () => import('@/components/dispositivos/panelBombas.vue')
         },
         {
           path: 'agregarBomba',
           name: 'agregarBomba',
           component: agregarBomba
+        },
+        {
+          path: 'analisisBomba',
+          name: 'analisisBomba',
+          component: analisisBomba
         }
       ]
     },
