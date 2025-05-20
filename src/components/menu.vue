@@ -11,15 +11,14 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <router-link to="/menu/agregarBomba" class="nav-link">Agregar Bomba</router-link>
-                        <a class="nav-link" href="#">Eliminar Bomba</a>
-                        <a class="nav-link" href="/">Cerrar Sesión</a>
+                        <a class="nav-link" @click="cerrarSecion">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
         </nav>
-       
-    <router-view></router-view>
-       
+
+        <router-view></router-view>
+
     </div>
 
 </template>
@@ -34,10 +33,16 @@ export default {
             ubicacion: 'represa tal',
             coordenadas: '20.00',
             estado: 'estable',
-            potencia: {nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw'},
+            potencia: { nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw' },
             voltaje: {},
             corriente: {},
             caudal: {}
+        }
+    },
+    methods: {
+        cerrarSecion() {
+            localStorage.removeItem('usuarioActivo');
+            this.$router.push('/');
         }
     }
 }
@@ -45,14 +50,14 @@ export default {
 
 <style scoped>
 .navbar {
-  position: fixed;
-  top: 0;         
-  left: 0;        
-  width: 100%;     
-  z-index: 1000;   
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .body {
-  padding-top: 56px; 
+    padding-top: 56px;
 }
 </style>

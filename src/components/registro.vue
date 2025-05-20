@@ -73,7 +73,7 @@ export default {
         return;
       }
 
-      const nuevoUsuario = { nombre, email, password };
+      const nuevoUsuario = { nombre, email, password, bombas:[] };
       usuariosRegistrados.push(nuevoUsuario);
       localStorage.setItem('usuarios', JSON.stringify(usuariosRegistrados));
 

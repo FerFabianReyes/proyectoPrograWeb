@@ -112,12 +112,38 @@ export default {
       this.mostrarModal = false;
     },
     confirmarGuardarBomba() {
-      let bombas = JSON.parse(localStorage.getItem('bombas')) || [];
-      bombas.push(this.bomba);
-      localStorage.setItem('bombas', JSON.stringify(bombas));
+      // carga el usuario activo
+      let usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+      let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+      if (!usuarioActivo.bombas) {
+        usuarioActivo.bombas = [];
+      }
+
+      // vrear una copia de la bomba con un nuevo id y fecha
+      const nuevaBomba = {
+        ...this.bomba,
+        id: Date.now(),
+        fechaRegistro: new Date().toISOString()
+      };
+
+      // agregar la bomba al usuario
+      usuarioActivo.bombas.push(nuevaBomba);
+
+      // actualizar el usuario en el array de usuarios
+      usuarios = usuarios.map(u =>
+        u.email === usuarioActivo.email ? usuarioActivo : u
+      );
+
+      // guardar actualizaciones
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+
+      // tedirigir o cerrar modal
       this.mostrarModal = false;
       this.$router.push('/menu');
     }
+
   }
 }
 </script>
@@ -134,7 +160,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1050;
 }
 

@@ -26,7 +26,8 @@ export default {
         }
     },
     mounted() {
-        const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+        const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+        const bombas = usuarioActivo?.bombas || [];
         this.listaDispositivos = bombas.map(bomba => ({
             nombre: bomba.nombre,
             estado: bomba.estado,

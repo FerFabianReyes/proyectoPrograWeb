@@ -145,6 +145,27 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <button type="button" class="btn btn-danger" @click="verifEliminar">Eliminar bomba</button>
+            <!-- MODAL -->
+            <div class="modal fade" :class="{ 'show d-block': mostrarModal }" tabindex="-1" v-if="mostrarModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content p-3">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Bomba</h5>
+                            <button type="button" class="btn-close" @click="cerrarModal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Estás seguro que deseas eliminar esta bomba?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" @click="cerrarModal">Cerrar</button>
+                            <button class="btn btn-danger" @click="eliminarBomba">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN MODAL -->
         </div>
 
 
@@ -158,7 +179,8 @@ export default {
     name: 'analisisBomba',
     data() {
         return {
-            bomba: null
+            bomba: null,
+            mostrarModal: false,
         };
     },
     mounted() {
@@ -197,9 +219,53 @@ export default {
             }
         },
         recargarPagina() {
-        window.location.reload();
-    }
+            window.location.reload();
+        },
+        verifEliminar() {
+            this.mostrarModal = true;
+        },
+        eliminarBomba() {
+            if (!this.bomba) return;
+
+            const bombas = JSON.parse(localStorage.getItem('bombas')) || [];
+            const index = bombas.findIndex(b => b.nombre === this.bomba.nombre);
+            if (index !== -1) {
+                bombas.splice(index, 1);
+                localStorage.setItem('bombas', JSON.stringify(bombas));
+            }
+
+            this.mostrarModal = false;
+            this.$router.push('/menu').then(() => {
+                window.location.reload();
+            });
+
+        },
+        cerrarModal() {
+            this.mostrarModal = false;
+        },
     }
 }
 
 </script>
+
+<style>
+.mb-2 {
+    width: 400px;
+    padding: 20px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+}
+</style>
