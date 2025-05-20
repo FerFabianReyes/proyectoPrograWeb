@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style scoped>
-/* Eliminamos los estilos personalizados de alerta */
+
 .login-container {
   display: flex;
   width: 100%;

@@ -4,7 +4,7 @@
     <p class="h4">Ingrese la información de la bomba en los campos</p> <br>
 
     <div class="mb-2">
-      <input v-model="bomba.nombre" type="text" class="form-control" placeholder="Nombre">
+      <input v-model="bomba.nombre" type="text" class="form-control" placeholder="Nombre"> <!--Si se ingresa algo. v-model se cambia el valor a la bomba con lo que le puso-->
       <input v-model="bomba.estado" type="text" class="form-control" placeholder="Estado">
       <input v-model="bomba.ubicacion" type="text" class="form-control" placeholder="Ubicación">
       <input v-model="bomba.coordenadas" type="text" class="form-control" placeholder="Coordenadas">
@@ -122,7 +122,7 @@ export default {
 
       // vrear una copia de la bomba con un nuevo id y fecha
       const nuevaBomba = {
-        ...this.bomba,
+        ...this.bomba, //Copiar todas las propiedades del objeti
         id: Date.now(),
         fechaRegistro: new Date().toISOString()
       };

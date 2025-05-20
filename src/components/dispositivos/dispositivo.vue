@@ -17,15 +17,15 @@
 <script>
 export default {
   name: 'dispositivo',
-  props: ['dispositivo'],
+  props: ['dispositivo'], //recibe un objeto desde el padre
   data() {
     return {
-      hover: false
+      hover: false //para ver si el mouse está en el componente
     };
   },
   methods: {
     irAAnálisis() {
-      this.$router.push({
+      this.$router.push({//cambia la ruta y pasa datos
   name: 'analisisBomba',
   query: {
     nombre: this.dispositivo.nombre,

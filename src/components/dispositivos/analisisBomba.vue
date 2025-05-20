@@ -187,7 +187,7 @@ export default {
         this.cargarBomba();
     },
     watch: {
-        '$route.query.nombre': function (newNombre) {
+        '$route.query.nombre'() {
             this.cargarBomba();
         }
     },
