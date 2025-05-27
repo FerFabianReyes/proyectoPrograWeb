@@ -167,9 +167,6 @@
             </div>
             <!-- FIN MODAL -->
         </div>
-
-
-
     </div>
 
 </template>
