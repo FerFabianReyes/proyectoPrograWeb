@@ -84,6 +84,7 @@ export default {
         voltaje: { nominal: '', min: '', max: '', unidades: '' },
         corriente: { nominal: '', min: '', max: '', unidades: '' },
         caudal: { nominal: '', min: '', max: '', unidades: '' },
+        valores: { pot_valor:'', vol_valor:'', corr_valor:'', caud_valor:'' }
       }
     }
   },

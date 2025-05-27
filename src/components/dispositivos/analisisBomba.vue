@@ -40,7 +40,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseOne">
-                        Potencia
+                        Valores
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -67,10 +67,37 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseTwo">
-                        Voltaje
+                        Potencia
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <table class="table table-hover" v-if="bomba">
+                            <tr>
+                                <th>Nominal</th>
+                                <th>Máxima</th>
+                                <th>Mínima</th>
+                                <th>Unidades</th>
+                            </tr>
+                            <tr>
+                                <td>{{ bomba.potencia.nominal }}</td>
+                                <td>{{ bomba.potencia.max }}</td>
+                                <td>{{ bomba.potencia.min }}</td>
+                                <td>{{ bomba.potencia.unidades }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseThree">
+                        Voltaje
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <table class="table table-hover" v-if="bomba">
                             <tr>
@@ -92,12 +119,12 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseThree">
+                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseFour">
                         Corriente
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <table class="table table-hover" v-if="bomba">
                             <tr>
@@ -120,12 +147,12 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseThree">
+                        data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseFive">
                         Caudal
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <table class="table table-hover" v-if="bomba">
                             <tr>

@@ -6,7 +6,8 @@ import listaDispo from '@/components/dispositivos/listaDispo.vue'
 import listaView from '@/components/dispositivos/viewDispositivos.vue'
 import agregarBomba from '@/components/agregarBomba.vue'
 import analisisBomba from '@/components/dispositivos/analisisBomba.vue'
-
+import pruebaVDispo from '@/components/dispositivos/pruebaVDispo.vue'
+import pruebaDispositivo from '@/components/dispositivos/pruebaDispositivo.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,16 @@ const router = createRouter({
       path: '/listadispo',
       name: 'listadispo',
       component: listaDispo,
+    },
+    {
+      path: '/pruebaVDispo',
+      name: 'pruebaVDispo',
+      component: pruebaVDispo,
+    },
+    {
+      path: '/pruebaDispositivo',
+      name: 'pruebaDispositivo',
+      component: pruebaDispositivo,
     },
   ],
 })

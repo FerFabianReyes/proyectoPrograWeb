@@ -11,6 +11,17 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <router-link to="/menu/agregarBomba" class="nav-link">Agregar Bomba</router-link>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Monitoreo
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Refresh</a></li>
+                                <li><a class="dropdown-item" href="#">Iniciar</a></li>
+                                <li><a class="dropdown-item" href="#">Detener</a></li>
+                            </ul>
+                        </div>
                         <a class="nav-link" @click="cerrarSecion">Cerrar Sesión</a>
                     </div>
                 </div>
