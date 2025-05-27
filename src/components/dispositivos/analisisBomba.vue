@@ -1,4 +1,14 @@
 <template>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Monitoreo
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" @click="refresh">Refresh</a></li>
+            <li><a class="dropdown-item" @click="start">Iniciar</a></li>
+            <li><a class="dropdown-item" @click="stop">Detener</a></li>
+        </ul>
+    </div>
     <div class="analisis"
         style="flex: 1; min-width: 800px; border-right: 1px solid #ccc; padding-right: 20px; overflow-y: auto; max-height: 80vh;">
 
@@ -9,12 +19,6 @@
                 </div>
                 <div class="col">
                     <p class="h4" v-if="bomba">{{ bomba.estado }}</p>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn" @click="recargarPagina">
-                        <span class="material-symbols-outlined">refresh</span>
-                    </button>
-
                 </div>
             </div>
             <br>
@@ -47,16 +51,16 @@
                     <div class="accordion-body">
                         <table class="table table-hover" v-if="bomba">
                             <tr>
-                                <th>Nominal</th>
-                                <th>Máxima</th>
-                                <th>Mínima</th>
-                                <th>Unidades</th>
+                                <th>Potencia</th>
+                                <th>Voltaje</th>
+                                <th>Corriente</th>
+                                <th>Caudal</th>
                             </tr>
                             <tr>
-                                <td>{{ bomba.potencia.nominal }}</td>
-                                <td>{{ bomba.potencia.max }}</td>
-                                <td>{{ bomba.potencia.min }}</td>
-                                <td>{{ bomba.potencia.unidades }}</td>
+                                <td>{{ bomba.valores.pot_valor }}</td>
+                                <td>{{ bomba.valores.vol_valor }}</td>
+                                <td>{{ bomba.valores.corr_valor }}</td>
+                                <td>{{ bomba.valores.caud_valor }}</td>
                             </tr>
                         </table>
                     </div>
@@ -226,6 +230,7 @@ export default {
 
             if (this.bomba) {
                 this.cambiarEstadoBomba();
+                this.refresh();
             }
         },
         cambiarEstadoBomba() {
@@ -270,9 +275,48 @@ export default {
         cerrarModal() {
             this.mostrarModal = false;
         },
+        refresh() {
+            if (!this.bomba) return;
+
+            let desviacion = 0.05;
+
+            let potencia = this.bomba.potencia.min +
+                (((this.bomba.potencia.max - this.bomba.potencia.min) +
+                    (this.bomba.potencia.nominal * desviacion)) * Math.random());
+
+            let voltaje = this.bomba.voltaje.min +
+                (((this.bomba.voltaje.max - this.bomba.voltaje.min) +
+                    (this.bomba.voltaje.nominal * desviacion)) * Math.random());
+
+            let corriente = this.bomba.corriente.min +
+                (((this.bomba.corriente.max - this.bomba.corriente.min) +
+                    (this.bomba.corriente.nominal * desviacion)) * Math.random());
+
+            let caudal = this.bomba.caudal.min +
+                (((this.bomba.caudal.max - this.bomba.caudal.min) +
+                    (this.bomba.caudal.nominal * 0.10)) * Math.random());
+
+            this.bomba.valores = {
+                pot_valor: potencia.toFixed(2),
+                vol_valor: voltaje.toFixed(2),
+                corr_valor: corriente.toFixed(2),
+                caud_valor: caudal.toFixed(2),
+                estatus: 1
+            };
+        }
+        ,
+        start() {
+            if (!this.nIntervId) {
+                this.nIntervId = setInterval(() => { this.refresh() }, 1000);
+            }
+        },
+        stop() {
+            clearInterval(this.nIntervId);
+            this.nIntervId = null;
+
+        }
     }
 }
-
 </script>
 
 <style>
