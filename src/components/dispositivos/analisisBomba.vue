@@ -16,6 +16,12 @@
                     </button>
 
                 </div>
+                <div class="col">
+                    <button type="button" class="btn" @click="recargarPagina">
+                        <span class="material-symbols-outlined">refresh</span>
+                    </button>
+
+                </div>
             </div>
             <br>
             <div class="row">
@@ -44,6 +50,33 @@
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <table class="table table-hover" v-if="bomba">
+                            <tr>
+                                <th>Nominal</th>
+                                <th>Máxima</th>
+                                <th>Mínima</th>
+                                <th>Unidades</th>
+                            </tr>
+                            <tr>
+                                <td>{{ bomba.potencia.nominal }}</td>
+                                <td>{{ bomba.potencia.max }}</td>
+                                <td>{{ bomba.potencia.min }}</td>
+                                <td>{{ bomba.potencia.unidades }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                        Potencia
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <table class="table table-hover" v-if="bomba">
                             <tr>
