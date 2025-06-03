@@ -5,7 +5,6 @@
 
     <div class="mb-2">
       <input v-model="bomba.nombre" type="text" class="form-control" placeholder="Nombre">
-      <input v-model="bomba.estado" type="text" class="form-control" placeholder="Estado">
       <input v-model="bomba.ubicacion" type="text" class="form-control" placeholder="Ubicación">
       <input v-model="bomba.coordenadas" type="text" class="form-control" placeholder="Coordenadas">
     </div>
@@ -80,6 +79,7 @@ export default {
         ubicacion: '',
         coordenadas: '',
         fechaRegistro: new Date().toISOString(),
+        valor: {potencia: '', voltaje: '', corriente: '', caudal: ''},
         potencia: { nominal: '', min: '', max: '', unidades: '' },
         voltaje: { nominal: '', min: '', max: '', unidades: '' },
         corriente: { nominal: '', min: '', max: '', unidades: '' },
@@ -95,7 +95,7 @@ export default {
       const b = this.bomba;
 
       const todosLlenos =
-        b.nombre && b.estado && b.coordenadas &&
+        b.nombre && b.coordenadas &&
         this.camposLlenos(b.potencia) &&
         this.camposLlenos(b.voltaje) &&
         this.camposLlenos(b.corriente) &&
