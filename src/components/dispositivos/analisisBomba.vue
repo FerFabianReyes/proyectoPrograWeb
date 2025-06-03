@@ -11,11 +11,6 @@
           <div class="col">
             <p class="h4">{{ bomba.estado || 'Activo' }}</p>
           </div>
-          <div class="col">
-            <button type="button" class="btn" @click="recargarPagina">
-              <span class="material-symbols-outlined">refresh</span>
-            </button>
-          </div>
         </div>
         <br>
         <div class="row">
@@ -35,66 +30,16 @@
       </div>
 
       <div class="accordion" id="accordionPanelsStayOpenExample">
-        <!-- Caudal -->
+        <!-- Potencia -->
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                     aria-controls="panelsStayOpen-collapseOne">
-              Caudal
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-            <div class="accordion-body">
-              <table class="table table-hover">
-                <tr>
-                  <th>Valor</th>
-                  <th>Unidades</th>
-                </tr>
-                <tr>
-                  <td>{{ bomba.caudal }}</td>
-                  <td>L/s</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Presión -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo">
-              Presión
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-            <div class="accordion-body">
-              <table class="table table-hover">
-                <tr>
-                  <th>Valor</th>
-                  <th>Unidades</th>
-                </tr>
-                <tr>
-                  <td>{{ bomba.presion }}</td>
-                  <td>PSI</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Potencia (si existe) -->
-        <div class="accordion-item" v-if="bomba.potencia">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseThree">
               Potencia
             </button>
           </h2>
-          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
             <div class="accordion-body">
               <table class="table table-hover">
                 <tr>
@@ -114,18 +59,18 @@
           </div>
         </div>
 
-        <!-- Voltaje (si existe) -->
-        <div class="accordion-item" v-if="bomba.voltaje">
+        <!-- Voltaje -->
+        <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseFour">
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
               Voltaje
             </button>
           </h2>
-          <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
             <div class="accordion-body">
-              <table class="table table-hover">
+             <table class="table table-hover">
                 <tr>
                   <th>Nominal</th>
                   <th>Máxima</th>
@@ -143,16 +88,16 @@
           </div>
         </div>
 
-        <!-- Corriente (si existe) -->
-        <div class="accordion-item" v-if="bomba.corriente">
+        <!-- Corriente -->
+        <div class="accordion-item" v-if="bomba.potencia">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseFive">
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
               Corriente
             </button>
           </h2>
-          <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
             <div class="accordion-body">
               <table class="table table-hover">
                 <tr>
@@ -166,6 +111,35 @@
                   <td>{{ bomba.corriente.max }}</td>
                   <td>{{ bomba.corriente.min }}</td>
                   <td>{{ bomba.corriente.unidades }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caudal -->
+        <div class="accordion-item" v-if="bomba.voltaje">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFour">
+              Caudal
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <table class="table table-hover">
+                <tr>
+                  <th>Nominal</th>
+                  <th>Máxima</th>
+                  <th>Mínima</th>
+                  <th>Unidades</th>
+                </tr>
+                <tr>
+                  <td>{{ bomba.caudal.nominal }}</td>
+                  <td>{{ bomba.caudal.max }}</td>
+                  <td>{{ bomba.caudal.min }}</td>
+                  <td>{{ bomba.caudal.unidades }}</td>
                 </tr>
               </table>
             </div>
