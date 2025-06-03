@@ -8,9 +8,6 @@
           <div class="col">
             <p class="h4">{{ bomba.nombre }}</p>
           </div>
-          <div class="col">
-            <p class="h4">{{ bomba.estatus }}</p>
-          </div>
         </div>
         <br>
         <div class="row">
@@ -36,7 +33,7 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                     data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                     aria-controls="panelsStayOpen-collapseOne">
-              Valores de la bomba
+              Valores de la bomba (Tiempo Real)
             </button>
           </h2>
           <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
@@ -49,10 +46,18 @@
                   <th>Caudal</th>
                 </tr>
                 <tr>
-                  <td>{{ bomba.valor.potencia }}</td>
-                  <td>{{ bomba.valor.voltaje }}</td>
-                  <td>{{ bomba.valor.corriente }}</td>
-                  <td>{{ bomba.valor.caudal }}</td>
+                  <td :class="getStatusClass('potencia')">
+                    {{ bomba.valor?.potencia || '0.000' }} {{ bomba.potencia?.unidades}}
+                  </td>
+                  <td :class="getStatusClass('voltaje')">
+                    {{ bomba.valor?.voltaje || '0.0' }} {{ bomba.voltaje?.unidades}}
+                  </td>
+                  <td :class="getStatusClass('corriente')">
+                    {{ bomba.valor?.corriente || '0.00' }} {{ bomba.corriente?.unidades }}
+                  </td>
+                  <td :class="getStatusClass('caudal')">
+                    {{ bomba.valor?.caudal || '0.000' }} {{ bomba.caudal?.unidades }}
+                  </td>
                 </tr>
               </table>
             </div>
@@ -89,7 +94,7 @@
         </div>
 
         <!-- Voltaje -->
-        <div class="accordion-item" v-if="bomba.potencia">
+        <div class="accordion-item" v-if="bomba.voltaje">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
@@ -118,7 +123,7 @@
         </div>
 
         <!-- Corriente -->
-        <div class="accordion-item" v-if="bomba.voltaje">
+        <div class="accordion-item" v-if="bomba.corriente">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
@@ -147,7 +152,7 @@
         </div>
 
         <!-- Caudal -->
-        <div class="accordion-item" v-if="bomba.voltaje">
+        <div class="accordion-item" v-if="bomba.caudal">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
@@ -224,6 +229,27 @@ export default {
     };
   },
   methods: {
+    getStatusClass(tipo) {
+      if (!this.bomba.valor || !this.bomba[tipo]) return '';
+      
+      const valor = parseFloat(this.bomba.valor[tipo]);
+      const min = this.bomba[tipo].min;
+      const max = this.bomba[tipo].max;
+      const nominal = this.bomba[tipo].nominal;
+      
+      // Definir rangos de alerta 
+      const alertaMin = nominal * 0.9;
+      const alertaMax = nominal * 1.1;
+      
+      if (valor < min || valor > max) {
+        return 'text-danger fw-bold'; // Fuera de rango - rojo
+      } else if (valor < alertaMin || valor > alertaMax) {
+        return 'text-warning fw-bold'; // Fuera de rango nominal - amarillo
+      } else {
+        return 'text-success fw-bold'; // Normal - verde
+      }
+    },
+    
     eliminarBomba() {
       const usuarioActivo = localStorage.getItem('usuarioActivo');
       const bombasKey = `bombas_${usuarioActivo}`;
@@ -288,5 +314,21 @@ export default {
 
 .btn {
   margin: 5px;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.fw-bold {
+  font-weight: bold !important;
 }
 </style>

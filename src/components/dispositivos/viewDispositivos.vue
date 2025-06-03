@@ -11,8 +11,7 @@
         <div class="analisis-bomba" style="flex: 1; min-width: 800px;">
 
             <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Monitoreo
                 </button>
                 <ul class="dropdown-menu">
@@ -37,13 +36,31 @@ export default {
     data() {
         return {
             listaDispositivos: [],
-            bombaSeleccionada: null
+            bombaSeleccionada: null,
+            nIntervId: null
         }
     },
     mounted() {
         const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
         const bombas = usuarioActivo?.bombas || [];
         this.listaDispositivos = bombas;
+
+        // Inicializar valores si no existen
+        this.listaDispositivos.forEach((bomba, index) => {
+            if (!bomba.valor) {
+                bomba.valor = {
+                    potencia: '0.000',
+                    voltaje: '0.0',
+                    corriente: '0.00',
+                    caudal: '0.000'
+                };
+            }
+        });
+    },
+    beforeUnmount() {
+        if (this.nIntervId) {
+            clearInterval(this.nIntervId);
+        }
     },
     methods: {
         seleccionarBomba(bomba) {
@@ -51,40 +68,58 @@ export default {
         },
 
         refresh() {
-                this.dispositivos.forEach((item,index)=>{
-                    let desviacion=0.05
 
-                    let potencia = item.potencia.min +
-                                (((item.potencia.max - item.potencia.min) +
-                                (item.potencia.nominal * 0.10)) * Math.random()) 
-                    let voltaje = item.voltaje.min +
-                                (((item.voltaje.max - item.voltaje.min) +
-                                (item.voltaje.nominal * desviacion)) * Math.random())
-                    let corriente = item.corriente.min +
-                                (((item.corriente.max - item.corriente.min) +
-                                (item.corriente.nominal * desviacion)) * Math.random())
-                    let caudal = item.caudal.min +
-                                (((item.caudal.max - item.caudal.min) +
-                                (item.caudal.nominal * 0.10)) * Math.random())           
-                    
-                    this.dispositivos[index].opera = {
-                        potencia: potencia,
-                        voltaje: voltaje,
-                        corriente: corriente,
-                        caudal: caudal
-                    }
-                })                
-            },
-            start() {
-                if (!this.nIntervId) {
-                    this.nIntervId = setInterval(()=>{this.refresh()}, 1000);
+            this.listaDispositivos.forEach((item, index) => {
+                const potenciaMin = parseFloat(item.potencia.min);
+                const potenciaMax = parseFloat(item.potencia.max);
+                const voltajeMin = parseFloat(item.voltaje.min);
+                const voltajeMax = parseFloat(item.voltaje.max);
+                const corrienteMin = parseFloat(item.corriente.min);
+                const corrienteMax = parseFloat(item.corriente.max);
+                const caudalMin = parseFloat(item.caudal.min);
+                const caudalMax = parseFloat(item.caudal.max);
+
+                let potencia = potenciaMin + ((potenciaMax - potenciaMin) * Math.random());
+                let voltaje = voltajeMin + ((voltajeMax - voltajeMin) * Math.random());
+                let corriente = corrienteMin + ((corrienteMax - corrienteMin) * Math.random());
+                let caudal = caudalMin + ((caudalMax - caudalMin) * Math.random());
+
+                // Crear objeto con nuevos valores
+                const nuevosValores = {
+                    potencia: potencia.toFixed(3),
+                    voltaje: voltaje.toFixed(1),
+                    corriente: corriente.toFixed(2),
+                    caudal: caudal.toFixed(3)
+                };
+
+                this.listaDispositivos[index].valor = nuevosValores;
+
+                // Actualizar bomba seleccionada si coincide
+                if (this.bombaSeleccionada && this.bombaSeleccionada.nombre === item.nombre) {
+                    this.bombaSeleccionada = { ...this.listaDispositivos[index] };
                 }
-            },
-            stop() {
+            });
+
+            // Forzar actualización de la vista
+            this.$forceUpdate();
+        },
+
+        start() {
+            if (!this.nIntervId) {
+                this.nIntervId = setInterval(() => {
+                    this.refresh();
+                }, 1000);
+                console.log('Intervalo iniciado:', this.nIntervId);
+            }
+        },
+
+        stop() {
+            if (this.nIntervId) {
                 clearInterval(this.nIntervId);
                 this.nIntervId = null;
+                console.log('Intervalo detenido');
             }
-
+        }
     }
 }
 </script>
