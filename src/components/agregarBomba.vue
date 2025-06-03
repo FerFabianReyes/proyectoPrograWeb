@@ -75,7 +75,8 @@ export default {
       bomba: {
         id: Date.now(),
         nombre: '',
-        estado: '',
+        estado: 1,
+        estatus: '',
         ubicacion: '',
         coordenadas: '',
         fechaRegistro: new Date().toISOString(),

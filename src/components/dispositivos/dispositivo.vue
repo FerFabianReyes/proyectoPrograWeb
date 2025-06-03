@@ -9,7 +9,7 @@
   >
     <h3 style="margin: 0 0 10px 0;">{{ dispositivo.nombre }}</h3>
     <p style="margin: 0;">Ubicación: {{ dispositivo.ubicacion }}</p>
-    <p style="margin: 0;">Estado: {{ dispositivo.estado }}</p>
+    <p style="margin: 0;">Estado: {{ dispositivo.estus }}</p>
   </div>
 </template>
 

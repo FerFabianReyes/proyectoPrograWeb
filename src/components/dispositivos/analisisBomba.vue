@@ -9,7 +9,7 @@
             <p class="h4">{{ bomba.nombre }}</p>
           </div>
           <div class="col">
-            <p class="h4">{{ bomba.estado || 'Activo' }}</p>
+            <p class="h4">{{ bomba.estatus }}</p>
           </div>
         </div>
         <br>
@@ -43,16 +43,16 @@
             <div class="accordion-body">
               <table class="table table-hover">
                 <tr>
-                  <th>Nominal</th>
-                  <th>Máxima</th>
-                  <th>Mínima</th>
-                  <th>Unidades</th>
+                  <th>Potencia</th>
+                  <th>Voltaje</th>
+                  <th>Corriente</th>
+                  <th>Caudal</th>
                 </tr>
                 <tr>
-                  <td>{{ bomba.valor.nominal }}</td>
-                  <td>{{ bomba.valor.max }}</td>
-                  <td>{{ bomba.valor.min }}</td>
-                  <td>{{ bomba.valor.unidades }}</td>
+                  <td>{{ bomba.valor.potencia }}</td>
+                  <td>{{ bomba.valor.voltaje }}</td>
+                  <td>{{ bomba.valor.corriente }}</td>
+                  <td>{{ bomba.valor.caudal }}</td>
                 </tr>
               </table>
             </div>
