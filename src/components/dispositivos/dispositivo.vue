@@ -1,49 +1,32 @@
 <template>
   <div
-    class="card dispositivo"
-    @click="irAAnálisis"
+    class="dispositivo"
+    @click="seleccionar"
+    style="cursor: pointer; border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 8px; background-color: #f9f9f9; transition: background-color 0.3s;"
     @mouseover="hover = true"
     @mouseleave="hover = false"
-    :style="{ boxShadow: hover ? '0 4px 12px rgba(0,0,0,0.3)' : 'none', cursor: 'pointer', transition: 'box-shadow 0.3s ease' }"
+    :style="{ backgroundColor: hover ? '#e6f7ff' : '#f9f9f9' }"
   >
-    <div class="card-body">
-      <h5 class="card-title">{{ dispositivo.nombre }}</h5>
-      <p class="card-text">Estado: {{ dispositivo.estado }}</p>
-      <p class="card-text">Ubicación: {{ dispositivo.ubicacion }}</p>
-    </div>
+    <h3 style="margin: 0 0 10px 0;">{{ dispositivo.nombre }}</h3>
+    <p style="margin: 0;">Ubicación: {{ dispositivo.ubicacion }}</p>
+    <p style="margin: 0;">Estado: {{ dispositivo.estado }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'dispositivo',
-  props: ['dispositivo'],
+  props: {
+    dispositivo: Object
+  },
   data() {
     return {
       hover: false
     };
   },
   methods: {
-    irAAnálisis() {
-      this.$router.push({
-  name: 'analisisBomba',
-  query: {
-    nombre: this.dispositivo.nombre,
-    estado: this.dispositivo.estado,
-    ubicacion: this.dispositivo.ubicacion
-  }
-})
-
+    seleccionar() {
+      this.$emit('seleccionar', this.dispositivo);
     }
   }
-};
-</script>
-
-<style scoped>
-.card {
-  margin: 10px;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
 }
-</style>
+</script>
