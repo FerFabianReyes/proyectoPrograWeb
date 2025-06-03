@@ -26,19 +26,7 @@
 <script>
 export default {
     name: 'Dispositivo',
-    data() {
-        return {
-            id: 0,
-            nombre: 'dispositivo1',
-            ubicacion: 'represa tal',
-            coordenadas: '20.00',
-            estado: 'estable',
-            potencia: { nominal: 7.5, min: 6.5, max: 8.5, unidades: 'kw' },
-            voltaje: {},
-            corriente: {},
-            caudal: {}
-        }
-    },
+
     methods: {
         cerrarSecion() {
             localStorage.removeItem('usuarioActivo');
