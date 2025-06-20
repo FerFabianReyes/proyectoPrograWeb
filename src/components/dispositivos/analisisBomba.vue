@@ -250,7 +250,7 @@ export default {
       }
     },
     
-    eliminarBomba() {
+     eliminarBomba() {
       const usuarioActivo = localStorage.getItem('usuarioActivo');
       const bombasKey = `bombas_${usuarioActivo}`;
       const bombasGuardadas = JSON.parse(localStorage.getItem(bombasKey)) || [];
@@ -259,10 +259,12 @@ export default {
       localStorage.setItem(bombasKey, JSON.stringify(bombasActualizadas));
 
       this.mostrarModal = false;
-      // Redirigir y recargar para reflejar los cambios
-      this.$router.push('/menu').then(() => {
-        window.location.reload();
-      });
+      
+      // Emitir evento al componente padre en lugar de recargar
+      this.$emit('bomba-eliminada', this.bomba.nombre);
+      
+      // Redirigir sin recargar
+      this.$router.push('/menu');
     },
     recargarPagina() {
       window.location.reload();

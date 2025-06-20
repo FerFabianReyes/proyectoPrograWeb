@@ -9,7 +9,6 @@
         </div>
 
         <div class="analisis-bomba" style="flex: 1; min-width: 800px;">
-
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Monitoreo
@@ -21,7 +20,11 @@
                 </ul>
             </div>
 
-            <analisis-bomba v-if="bombaSeleccionada" :bomba="bombaSeleccionada" />
+            <analisis-bomba 
+                v-if="bombaSeleccionada" 
+                :bomba="bombaSeleccionada" 
+                @bomba-eliminada="eliminarBombaDeLista" 
+            />
         </div>
     </div>
 </template>
@@ -68,7 +71,6 @@ export default {
         },
 
         refresh() {
-
             this.listaDispositivos.forEach((item, index) => {
                 const potenciaMin = parseFloat(item.potencia.min);
                 const potenciaMax = parseFloat(item.potencia.max);
@@ -84,7 +86,6 @@ export default {
                 let corriente = corrienteMin + ((corrienteMax - corrienteMin) * Math.random());
                 let caudal = caudalMin + ((caudalMax - caudalMin) * Math.random());
 
-                // Crear objeto con nuevos valores
                 const nuevosValores = {
                     potencia: potencia.toFixed(3),
                     voltaje: voltaje.toFixed(1),
@@ -94,13 +95,11 @@ export default {
 
                 this.listaDispositivos[index].valor = nuevosValores;
 
-                // Actualizar bomba seleccionada si coincide
                 if (this.bombaSeleccionada && this.bombaSeleccionada.nombre === item.nombre) {
                     this.bombaSeleccionada = { ...this.listaDispositivos[index] };
                 }
             });
 
-            // Forzar actualización de la vista
             this.$forceUpdate();
         },
 
@@ -118,6 +117,24 @@ export default {
                 clearInterval(this.nIntervId);
                 this.nIntervId = null;
                 console.log('Intervalo detenido');
+            }
+        },
+
+        eliminarBombaDeLista(nombreBomba) {
+            // Actualizar lista local
+            this.listaDispositivos = this.listaDispositivos.filter(b => b.nombre !== nombreBomba);
+
+            // Actualizar localStorage
+            const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+            if (usuarioActivo && usuarioActivo.bombas) {
+                const bombasActualizadas = usuarioActivo.bombas.filter(b => b.nombre !== nombreBomba);
+                usuarioActivo.bombas = bombasActualizadas;
+                localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+            }
+
+            // Deseleccionar la bomba si era la seleccionada
+            if (this.bombaSeleccionada && this.bombaSeleccionada.nombre === nombreBomba) {
+                this.bombaSeleccionada = null;
             }
         }
     }
